@@ -67,9 +67,9 @@ input::placeholder,textarea::placeholder{color:var(--muted)}
 .li .k{font-weight:700;text-align:right}
 .x{width:36px;height:36px;border-radius:18px;border:0;background:var(--soft);font-size:18px;line-height:1;color:var(--muted)}
 .stp{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
-.stp button{width:40px;height:40px;border:0;background:none;font-size:20px;line-height:1}
-.stp input{width:64px;min-height:40px;border:0;border-inline:1px solid var(--line);border-radius:0;text-align:center;padding:0 2px;font-weight:600}
-.stp.s input{width:46px}
+.stp button{width:36px;height:40px;border:0;background:none;font-size:20px;line-height:1}
+.stp input{width:56px;min-height:40px;border:0;border-inline:1px solid var(--line);border-radius:0;text-align:center;padding:0 2px;font-weight:600}
+.stp.s input{width:40px}
 .empty{padding:18px 6px;text-align:center;color:var(--muted);font-size:14px}
 
 /* sheet */
@@ -96,7 +96,7 @@ label.f{display:grid;gap:4px;font-size:13px;color:var(--muted);font-weight:500}
 .ex .t{font-weight:600;color:var(--accent);font-size:14px}
 .ex .why{font-size:13px;color:var(--muted)}
 .ex.alldone{border-color:var(--accent)}
-.set{display:grid;grid-template-columns:18px 146px 128px 1fr;gap:8px;align-items:center}
+.set{display:grid;grid-template-columns:14px 130px 114px 1fr;gap:6px;align-items:center}
 .set .sn{font-size:13px;color:var(--muted);font-weight:600}
 .ck{justify-self:end;width:44px;height:44px;border-radius:22px;border:2px solid var(--line);background:var(--surface);display:grid;place-items:center}
 .ck svg{width:20px;height:20px;stroke:var(--muted);fill:none;stroke-width:3}
@@ -133,7 +133,7 @@ nav.tabs button[aria-current=page]{color:var(--accent)}
 #toast{position:fixed;left:50%;transform:translateX(-50%);z-index:30;bottom:calc(140px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 8px 10px 16px;border-radius:12px;font-size:14px;font-weight:500;display:flex;gap:10px;align-items:center;max-width:calc(100vw - 32px)}
 #toast button{border:0;background:none;color:var(--accent);font-weight:700;padding:4px 8px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #toast button{color:var(--accent-ink)}}
-@media (max-width:360px){.big .v{font-size:36px}.set{grid-template-columns:0 146px 128px 1fr;gap:6px}.set .sn{visibility:hidden}}
+@media (max-width:360px){.big .v{font-size:36px}.set{grid-template-columns:0 124px 110px 1fr;gap:6px}.set .sn{visibility:hidden}}
 @media (prefers-reduced-motion:no-preference){.bar i,.prog i{transition:width .3s}}
 </style>
 
@@ -204,27 +204,41 @@ var FOODS=[
 /* ---------- training plan ---------- */
 function X(id,name,sets,lo,hi,inc,o){var e={id:id,name:name,sets:sets,lo:lo,hi:hi,inc:inc};if(o)for(var k in o)e[k]=o[k];return e}
 var SEC={noload:true,unit:'sec'};
+var UNI={uni:true},EACH={each:true};
+function U(o){var r={uni:true};for(var k in o)r[k]=o[k];return r}
 var PLAN={
  beginner:{
-  'Push A':[X('mchest','Machine chest press',3,10,12,5),X('dbshp','Seated DB shoulder press',3,10,12,5),X('pushdown','Triceps pushdown',3,10,12,5),X('latraise','DB lateral raise',3,12,15,5)],
-  'Pull A':[X('latpd','Lat pulldown',3,10,12,5),X('scrow','Seated cable row',3,10,12,5),X('facepull','Face pull',3,12,15,5),X('dbcurl','DB curl',3,10,12,5)],
-  'Legs A':[X('legpress','Leg press',3,10,12,10),X('rdl','DB Romanian deadlift',3,10,12,5),X('legcurl','Leg curl',3,10,12,5),X('calf','Calf raise',3,12,15,10),X('plank','Plank',3,30,45,0,SEC)],
-  'Push B':[X('incdb','Incline DB press',3,10,12,5),X('mshp','Machine shoulder press',3,10,12,5),X('cfly','Cable fly',3,12,15,5),X('ropeext','Overhead rope extension',3,10,12,5)],
-  'Pull B':[X('ngpd','Neutral-grip pulldown',3,10,12,5),X('csrow','Chest-supported row',3,10,12,5),X('rdfly','Rear delt fly',3,12,15,5),X('hamcurl','Hammer curl',3,10,12,5)],
-  'Legs B':[X('goblet','Goblet squat',3,10,12,5),X('hipthrust','Hip thrust',3,10,12,10),X('legext','Leg extension',3,12,15,5),X('seatcalf','Seated calf raise',3,12,15,10),X('cabcrunch','Cable crunch',3,12,15,5)]
+  'Push A':[X('incdb','Incline DB press',3,10,12,5),X('mchest','Machine chest press',3,10,12,5),X('dbshp','Seated DB shoulder press, neutral grip',3,10,12,5),X('cablat1','One-arm cable lateral raise',3,12,15,5,UNI),X('pushdown1','One-arm cable pushdown',3,10,12,5,UNI),X('deadbug','Dead bug, each side',2,8,10,0,{noload:true})],
+  'Pull A':[X('latpd','Lat pulldown',3,10,12,5),X('dbrow','One-arm DB row',3,10,12,5,UNI),X('facepull','Face pull',3,12,15,5),X('dbcurl1','One-arm DB curl',3,10,12,5,UNI),X('pallof','Pallof press, each side',2,10,12,5)],
+  'Legs A':[X('legpress','Leg press',3,10,12,10),X('rdl','DB Romanian deadlift',3,10,12,5),X('stepup','DB step-up',3,8,10,5,EACH),X('legcurl','Leg curl',3,10,12,5),X('calf','Calf raise',3,12,15,10)],
+  'Push B':[X('mshp','Machine shoulder press',3,10,12,5),X('lowinc','Low-incline DB press',3,10,12,5),X('cfly','Low-to-high cable fly',3,12,15,5),X('latraise','DB lateral raise',3,12,15,5),X('ohext1','One-arm overhead DB extension',3,10,12,5,UNI),X('plank','Plank',3,30,45,0,SEC)],
+  'Pull B':[X('ngpd','Neutral-grip pulldown',3,10,12,5),X('csrow','Chest-supported row',3,10,12,5),X('rdfly','Rear delt fly',3,12,15,5),X('hamcurl1','One-arm hammer curl',3,10,12,5,UNI),X('suitcase','Suitcase carry, each side',3,30,40,5,U({unit:'sec'}))],
+  'Legs B':[X('goblet','Goblet squat',3,10,12,5),X('hipthrust','Hip thrust',3,10,12,10),X('revlunge','DB reverse lunge',3,8,10,5,EACH),X('legext','Leg extension',3,12,15,5),X('seatcalf','Seated calf raise',3,12,15,10)]
  },
  intermediate:{
-  'Push A':[X('bench','Bench press',4,6,8,5),X('incdb','Incline DB press',3,8,10,5),X('ohp','DB overhead press',3,8,10,5),X('latraise','DB lateral raise',3,12,15,5),X('pushdown','Triceps pushdown',3,10,12,5)],
-  'Pull A':[X('pullup','Pull-up or assisted',4,6,8,5),X('csrow','Chest-supported row',4,8,10,5),X('facepull','Face pull',3,12,15,5),X('ezcurl','EZ-bar curl',3,8,10,5)],
-  'Legs A':[X('squat','Back squat',4,6,8,10),X('rdl','Romanian deadlift',3,8,10,10),X('splitsq','Split squat',3,8,10,5),X('legcurl','Leg curl',3,10,12,5),X('calf','Calf raise',4,12,15,10)],
-  'Push B':[X('dbohp','Seated DB overhead press',4,6,8,5),X('dips','Dips',3,8,10,5),X('incfly','Incline cable fly',3,10,12,5),X('cablat','Cable lateral raise',4,12,15,5),X('ohext','Overhead triceps extension',3,10,12,5)],
-  'Pull B':[X('scrow','Seated cable row',4,8,10,5),X('dbrow','One-arm DB row',3,8,10,5),X('rdfly','Rear delt fly',3,12,15,5),X('hamcurl','Hammer curl',3,10,12,5)],
-  'Legs B':[X('deadlift','Deadlift',3,5,5,10),X('hipthrust','Hip thrust',3,8,10,10),X('lunge','Walking lunge',3,10,12,5),X('seatcalf','Seated calf raise',3,12,15,10),X('plank','Plank',3,45,60,0,SEC)]
+  'Push A':[X('incbench','Incline barbell or DB press',4,6,8,5),X('bench','Flat DB press',3,8,10,5),X('ohp','Standing DB press, neutral grip',3,8,10,5),X('cablat1','One-arm cable lateral raise',4,12,15,5,UNI),X('pushdown1','One-arm cable pushdown',3,10,12,5,UNI),X('deadbug','Dead bug, each side',2,10,12,0,{noload:true})],
+  'Pull A':[X('pullup','Pull-up or assisted pull-up',4,6,8,5),X('dbrow','One-arm DB row',4,8,10,5,UNI),X('facepull','Face pull',3,12,15,5),X('dbcurl1','One-arm incline DB curl',3,8,10,5,UNI),X('pallof','Pallof press, each side',3,10,12,5)],
+  'Legs A':[X('squat','Back squat',4,6,8,10),X('rdl','Romanian deadlift',3,8,10,10),X('bss','Bulgarian split squat',3,8,10,5,EACH),X('legcurl','Leg curl',3,10,12,5),X('calf','Calf raise',4,12,15,10)],
+  'Push B':[X('dbohp','Seated DB overhead press',4,6,8,5),X('lowinc','Low-incline DB press',3,8,10,5),X('dips','Dips',3,8,10,5),X('latraise','DB lateral raise',4,12,15,5),X('ohext1','One-arm overhead DB extension',3,10,12,5,UNI),X('plank','Plank',3,45,60,0,SEC)],
+  'Pull B':[X('scrow','Seated cable row',4,8,10,5),X('ngpd','Neutral-grip pulldown',3,8,10,5),X('rdfly','Rear delt fly',4,12,15,5),X('hamcurl1','One-arm hammer curl',3,8,10,5,UNI),X('suitcase','Suitcase carry, each side',3,30,40,5,U({unit:'sec'}))],
+  'Legs B':[X('trapdl','Trap-bar or conventional deadlift',3,5,6,10),X('hipthrust','Hip thrust',3,8,10,10),X('lunge','Walking lunge',3,10,12,5,EACH),X('legext','Leg extension',3,12,15,5),X('seatcalf','Seated calf raise',3,12,15,10)]
  }
+};
+var WARM={
+ upper:['2 min easy bike or rower','Band pull-aparts × 15','Wall slides × 10','Open books × 6 each side','Cat-cow × 8','1 light set of your first lift'],
+ legs:['2 min easy bike','Hip flexor stretch, 30 sec each side (undoes the driving)',"World's greatest stretch × 4 each side",'Glute bridge × 12','Bodyweight squat × 10','1 light set of your first lift']
+};
+var FIN={
+ 'Push A':'Athletic finisher: 3 rounds of 10 med-ball chest passes against the wall, then 20 sec hard bike. Rest 60 sec.',
+ 'Pull A':'Athletic finisher: 3 rounds of 8 kettlebell swings, then 20 sec hard rower. Rest 60 sec.',
+ 'Legs A':'Athletic finisher: 4 rounds of 5 low box jumps (step down), then 20 sec hard bike. Rest 60 sec.',
+ 'Push B':'Conditioning: 6 rounds of 20 sec hard bike, 40 sec easy.',
+ 'Pull B':'Athletic finisher: 3 rounds of 30 sec jump rope (or quick feet on the spot), then 40 m farmer carry. Rest 60 sec.',
+ 'Legs B':'Athletic finisher: 4 rounds of 10 lateral bounds (skater jumps), then 20 sec hard bike. Rest 60 sec.'
 };
 var ORDER=['Push A','Pull A','Legs A','Push B','Pull B','Legs B'];
 var BYDAY=[null,'Push A','Pull A','Legs A','Push B','Pull B','Legs B'];
-var KEYLIFTS=['mchest','bench','incdb','dbshp','ohp','latpd','pullup','scrow','csrow','legpress','squat','rdl','deadlift','hipthrust','goblet'];
+var KEYLIFTS=['incdb','incbench','mchest','bench','dbshp','ohp','latpd','pullup','dbrow','csrow','legpress','squat','rdl','trapdl','hipthrust','goblet'];
 
 /* ---------- state ---------- */
 function def(){return {targets:{kcal:2450,p:170,f:70},favs:['smoothie','eggs3','wrap','bowl','shake','yogurt','coffee','banana'],custom:[],recent:[],log:{},wo:{},weights:{},level:'beginner',rest:90}}
@@ -314,6 +328,11 @@ function viewFood(){
     '<div class="sub num"><span>Eaten '+nf(t.kcal)+' / '+nf(T.kcal)+'</span><span>Protein '+r0(t.p)+' / '+T.p+' g</span><span>Carbs '+r0(t.c)+' / '+carbT()+' g</span><span>Fat '+r0(t.f)+' / '+T.f+' g</span></div>'+
     '</div></section>';
   if(S.example)h+='<div class="note" style="margin-top:12px">These are example entries so you can see how it works. <button class="btn ghost" data-a="clearex" style="min-height:32px;padding:0 6px;color:var(--accent)">Clear examples</button></div>';
+  h+='<section class="sec"><h2>What did you eat?</h2><div class="card" style="display:grid;gap:10px">'+
+    '<input id="est" type="text" autocomplete="off" placeholder="e.g. 2 roti, daal and a chai" value="'+esc(estText)+'" aria-label="Describe what you ate">'+
+    '<div id="estout" style="display:grid;gap:6px">'+estHtml()+'</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end"><label class="f">Calories<input id="estk" type="number" inputmode="numeric" min="0" placeholder="0"></label><label class="f">Protein g<input id="estp" type="number" inputmode="numeric" min="0" placeholder="0"></label><button class="btn pri" data-a="estadd">Add</button></div>'+
+    '<div class="sm muted">Rough estimate from typical portions. Change the numbers if you know better.</div></div></section>';
   var fav=S.favs.map(food).filter(Boolean);
   h+='<section class="sec"><div class="row"><h2>Tap to add</h2><span class="sm muted">Star foods in Search to pin them</span></div><div class="qa">'+
     fav.map(function(f){return '<button data-a="quick" data-id="'+esc(f.id)+'"><b>'+esc(f.name)+'</b><span class="num">'+nf(f.kcal)+' kcal · '+r0(f.p)+' g protein</span></button>'}).join('')+
@@ -334,6 +353,82 @@ function addFood(f,q){
   S.recent=[f.id].concat(S.recent.filter(function(x){return x!==f.id})).slice(0,8);
   save();var id=S.log[date][S.log[date].length-1].id,d=date;
   toast('Added '+f.name,function(){S.log[d]=log(d).filter(function(e){return e.id!==id});save();render()});
+}
+
+
+/* ---------- rough calorie estimator: type what you ate ---------- */
+/* [aliases, label, kcal, protein, type]  type: pc = per piece, cup = per cup, bowl = per bowl, plate = per plate, g = per 150 g serving */
+var EDB=[
+ ['roti|chapati|chapatti|phulka','roti',120,3,'pc'],['naan','naan',260,9,'pc'],['garlic naan','garlic naan',300,9,'pc'],['aloo paratha','aloo paratha',330,7,'pc'],['paratha|parantha','paratha',300,6,'pc'],['puri|poori','puri',100,2,'pc'],
+ ['rice|chawal|white rice','rice',205,4,'cup'],['brown rice','brown rice',215,5,'cup'],['fried rice','fried rice',240,6,'cup'],['biryani|biriyani','biryani',650,30,'plate'],['pulao|pilaf','pulao',500,14,'plate'],
+ ['daal|dal|dhal|lentils?|lentil soup','daal',230,13,'cup'],['chana|chole|chickpeas?|chickpea curry','chana',270,12,'cup'],['rajma|kidney beans','rajma',250,13,'cup'],
+ ['chicken karahi|karahi|kadai chicken|chicken handi|chicken curry|chicken salan|salan','chicken curry',450,35,'bowl'],['butter chicken|chicken makhani','butter chicken',500,30,'bowl'],['nihari','nihari',550,35,'bowl'],['haleem','haleem',400,25,'bowl'],['korma|qorma','korma',500,30,'bowl'],['keema|qeema','keema',450,30,'bowl'],['mutton curry|goat curry|lamb curry|beef curry','meat curry',500,35,'bowl'],
+ ['sabzi|sabji|aloo gobi|mixed veg curry|bhindi|aloo','sabzi',200,5,'bowl'],['palak paneer|saag paneer|saag','palak paneer',350,15,'bowl'],['paneer','paneer',300,18,'pc'],
+ ['seekh kebab|seekh kabab|kebab|kabab','seekh kebab',150,12,'pc'],['shami kebab','shami kebab',180,10,'pc'],['chicken tikka|tikka','chicken tikka',300,40,'pc'],['tandoori chicken','tandoori chicken',260,35,'pc'],['chapli kebab','chapli kebab',350,20,'pc'],
+ ['samosas?','samosa',260,5,'pc'],['pakoras?|pakodas?','pakora',75,2,'pc'],['chaat|chana chaat','chaat',300,8,'bowl'],['raita','raita',80,4,'cup'],
+ ['chai|tea with milk|milk tea|doodh patti','chai',90,3,'cup'],['tea|green tea','tea',2,0,'cup'],['lassi','lassi',260,8,'cup'],['mango lassi','mango lassi',300,8,'cup'],
+ ['gulab jamun','gulab jamun',150,2,'pc'],['jalebi','jalebi',150,1,'pc'],['kheer','kheer',300,8,'cup'],['mithai|barfi|ladoo|laddu','mithai',150,2,'pc'],
+ ['chicken breast|grilled chicken|chicken','chicken',248,46,'g'],['chicken thighs?','chicken thigh',270,36,'g'],['chicken wings?|wings?','chicken wing',90,8,'pc'],['chicken nuggets?|nuggets?','nugget',45,2.5,'pc'],['chicken tenders?|tenders?|chicken strips?','tender',90,7,'pc'],['fried chicken|kfc','fried chicken',300,20,'pc'],
+ ['salmon','salmon',310,34,'g'],['fish|tilapia|cod','fish',200,30,'g'],['shrimp|prawns?','shrimp',150,28,'g'],['tuna','tuna',110,25,'pc'],
+ ['steak|beef','beef',330,38,'g'],['ground beef|mince','ground beef',375,30,'g'],['lamb|mutton|goat','lamb',375,35,'g'],['turkey','turkey',220,40,'g'],
+ ['eggs?|boiled eggs?|fried eggs?','egg',78,6,'pc'],['omelette|omelet','omelette',220,14,'pc'],['scrambled eggs','scrambled eggs',200,13,'cup'],
+ ['bread|toast|slices? of bread','bread slice',80,3,'pc'],['bagel','bagel',280,10,'pc'],['croissant','croissant',230,5,'pc'],['tortilla|wrap','tortilla',130,4,'pc'],['pita','pita',165,5,'pc'],
+ ['sandwich','sandwich',400,20,'pc'],['burger|hamburger','burger',550,28,'pc'],['cheeseburger','cheeseburger',300,15,'pc'],['pizza|pizza slice|slices? of pizza','pizza slice',285,12,'pc'],
+ ['shawarma|chicken shawarma|shawarma wrap','shawarma',600,35,'pc'],['shawarma plate|chicken plate','shawarma plate',900,50,'pc'],['falafel','falafel',60,2,'pc'],['hummus','hummus',70,2,'pc'],
+ ['poutine','poutine',740,20,'pc'],['fries|french fries|chips','fries',320,5,'pc'],['potato|baked potato','potato',160,4,'pc'],['sweet potato','sweet potato',115,2,'pc'],['mashed potato(es)?','mashed potato',240,4,'cup'],['wedges','potato wedges',190,4,'pc'],
+ ['pasta|spaghetti|macaroni','pasta',220,8,'cup'],['mac and cheese|mac n cheese','mac and cheese',400,15,'cup'],['noodles|chow mein','noodles',220,7,'cup'],['ramen','ramen',450,12,'bowl'],
+ ['salad|green salad','salad',150,4,'bowl'],['caesar salad','caesar salad',350,10,'bowl'],['soup','soup',150,6,'cup'],
+ ['oats|oatmeal|porridge','oatmeal',150,5,'cup'],['cereal','cereal',150,3,'cup'],['granola','granola',300,7,'cup'],
+ ['milk','milk',120,8,'cup'],['greek yogurt|greek yoghurt','greek yogurt',125,17,'pc'],['yogurt|yoghurt|dahi|curd','yogurt',150,9,'cup'],['cheese|cheese slice','cheese slice',110,7,'pc'],
+ ['protein shake|protein scoop|scoops? of protein|whey|protein','protein shake',120,24,'pc'],['protein bar','protein bar',220,20,'pc'],['smoothie|my smoothie|usual smoothie','your smoothie',740,49,'pc'],
+ ['banana','banana',105,1,'pc'],['apple','apple',95,0.5,'pc'],['orange','orange',62,1,'pc'],['dates?|khajoor','date',66,0.5,'pc'],['mango','mango',200,3,'pc'],['grapes','grapes',100,1,'cup'],['berries|strawberries|blueberries','berries',70,1,'cup'],['watermelon','watermelon',45,1,'cup'],
+ ['almonds?','almonds (handful)',165,6,'pc'],['peanuts|nuts|cashews|mixed nuts','nuts (handful)',170,6,'pc'],['peanut butter|pb','peanut butter (tbsp)',95,4,'pc'],
+ ['chocolate|chocolate bar|candy bar','chocolate bar',230,3,'pc'],['cookies?|biscuits?','cookie',150,2,'pc'],['donuts?|doughnuts?','donut',260,3,'pc'],['timbits?','timbit',60,1,'pc'],['muffin','muffin',400,6,'pc'],['cake|slice of cake','cake slice',350,4,'pc'],['ice cream','ice cream',270,5,'cup'],
+ ['coffee|black coffee|americano','coffee',5,0,'cup'],['double double|coffee with cream and sugar|regular coffee','double double',230,3,'cup'],['latte','latte',190,10,'cup'],['cappuccino','cappuccino',120,6,'cup'],['iced capp|iced cap','iced capp',360,4,'cup'],
+ ['coke|pop|soda|pepsi|sprite','pop (can)',150,0,'pc'],['juice|orange juice','juice',120,1,'cup'],['energy drink|red bull|monster','energy drink',110,0,'pc'],['beer','beer',150,1,'pc'],
+ ['sugar','sugar (tsp)',16,0,'pc'],['honey','honey (tbsp)',64,0,'pc'],['butter','butter (tbsp)',100,0,'pc'],['ghee|oil|olive oil','oil (tbsp)',120,0,'pc'],['mayo|mayonnaise','mayo (tbsp)',95,0,'pc'],['ketchup','ketchup (tbsp)',20,0,'pc'],
+ ['big mac','Big Mac',590,25,'pc'],['mcchicken','McChicken',400,14,'pc'],['mcdouble','McDouble',400,22,'pc'],['quarter pounder','Quarter Pounder',520,30,'pc'],['egg mcmuffin|mcmuffin','Egg McMuffin',310,17,'pc'],['hash browns?','hash brown',140,1,'pc'],['big mac combo|combo','combo meal',1110,30,'pc'],
+ ['sub|subway|6 inch sub','6-inch sub',400,25,'pc'],['footlong','footlong sub',800,50,'pc'],['burrito','burrito',900,40,'pc'],['burrito bowl','burrito bowl',650,40,'pc'],['tacos?','taco',200,10,'pc'],['sushi','sushi roll',300,9,'pc'],['breakfast sandwich','breakfast sandwich',400,18,'pc'],['wrap meal|chicken wrap','chicken wrap',430,36,'pc'],['rice bowl|chicken rice bowl|chicken and rice','chicken and rice',513,53,'plate']
+].reduce(function(out,a){a[0].split('|').forEach(function(al){out.push({re:new RegExp('\\b(?:'+al+')(?:e?s)?\\b'),len:al.length,name:a[1],kcal:a[2],p:a[3],t:a[4]})});return out},[]).sort(function(a,b){return b.len-a.len});
+var NUMW={a:1,an:1,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,half:0.5,couple:2,few:3,some:1};
+var UMUL={cup:{cup:1,bowl:1.5,plate:2,glass:1},bowl:{cup:0.6,bowl:1,plate:1.3},plate:{cup:0.45,bowl:0.7,plate:1}};
+function estimate(text){
+  var t=(' '+(text||'').toLowerCase()+' ').replace(/mac (and|&|n) cheese/g,'mac n cheese').replace(/chicken (and|&) rice/g,'chicken n rice').replace(/coffee with cream and sugar/g,'double double').replace(/\bpb ?& ?j\b/g,'pb');
+  var parts=t.split(/,|\+|;|\n|&|\band\b|\bwith\b|\bplus\b/).map(function(x){return x.trim()}).filter(Boolean);
+  var items=[],miss=[];
+  parts.forEach(function(pt){
+    pt=pt.replace(/chicken n rice/,'chicken and rice');
+    var f=null;for(var i=0;i<EDB.length;i++){if(EDB[i].re.test(pt)){f=EDB[i];break}}
+    if(!f){if(pt.replace(/[^a-z]/g,'').length>1)miss.push(pt);return}
+    var q=1,m,mult=1,grams=null;pt=pt.replace(f.re,' ');
+    if((m=pt.match(/(\d+(?:\.\d+)?)\s*(g|gm|grams?|kg|ml|oz|lbs?)\b/))){var n=+m[1],u=m[2];grams=u==='kg'?n*1000:u==='oz'?n*28.35:/^lb/.test(u)?n*454:n}
+    else if((m=pt.match(/(\d+)\s*\/\s*(\d+)/)))q=+m[1]/+m[2];
+    else if((m=pt.match(/(\d+(?:\.\d+)?)/)))q=+m[1];
+    else{for(var w in NUMW){if(new RegExp('\\b'+w+'\\b').test(pt)){q=NUMW[w];break}}}
+    if(/\bhalf\b/.test(pt)&&!/\d/.test(pt))q=0.5;
+    var um=UMUL[f.t];
+    if(um){var uu=(pt.match(/\b(cups?|bowls?|plates?|glass(?:es)?)\b/)||[])[1];if(uu){uu=uu.replace(/es$|s$/,'');if(uu==='glas')uu='glass';mult*=um[uu]||1}}
+    if(/\b(small|little)\b/.test(pt))mult*=0.7;if(/\b(large|big|huge)\b/.test(pt))mult*=1.4;
+    var k,pr,lbl;
+    if(grams!==null){var per=f.t==='g'?150:f.t==='cup'?200:f.t==='bowl'?300:f.t==='plate'?400:100;k=f.kcal*grams/per;pr=f.p*grams/per;lbl=r0(grams)+' g '+f.name}
+    else{k=f.kcal*q*mult;pr=f.p*q*mult;lbl=(q!==1?q+' × ':'')+(mult!==1?(mult<1?'small ':'large ')+'':'')+f.name+(f.t==='g'&&q===1?' (150 g)':'')}
+    items.push({label:lbl,kcal:k,p:pr});
+  });
+  var kc=items.reduce(function(a,x){return a+x.kcal},0),pp=items.reduce(function(a,x){return a+x.p},0);
+  return {items:items,miss:miss,kcal:r0(kc),p:r0(pp)};
+}
+var estText='',estTouched=false;
+function estHtml(){
+  var e=estimate(estText);
+  if(!estText.trim())return '<div class="sm muted">Example: <i>2 roti, chicken karahi and a chai</i> or <i>200g chicken with rice</i></div>';
+  var h='';
+  if(e.items.length)h+='<div style="display:grid;gap:2px">'+e.items.map(function(x){return '<div class="row sm num" style="flex-wrap:nowrap"><span style="min-width:0;overflow-wrap:anywhere">'+esc(x.label)+'</span><span class="muted" style="white-space:nowrap">'+nf(x.kcal)+' kcal · '+r0(x.p)+' g P</span></div>'}).join('')+'</div>';
+  if(e.miss.length)h+='<div class="sm" style="color:var(--warn)">Not sure about: '+e.miss.map(esc).join(', ')+'. Add the calories yourself below, or try a simpler word.</div>';
+  return h;
+}
+function updEst(){
+  var o=$('#estout');if(o)o.innerHTML=estHtml();
+  if(!estTouched){var e=estimate(estText),k=$('#estk'),p=$('#estp');if(k)k.value=estText.trim()&&e.kcal?e.kcal:'';if(p)p.value=estText.trim()&&e.kcal?e.p:''}
 }
 
 /* ---------- search sheet ---------- */
@@ -383,14 +478,17 @@ function viewWorkout(){
   list.forEach(function(ex){var a=(ss.sets||{})[ex.id]||[];total+=ex.sets;dn+=a.filter(function(x){return x&&x.done}).length});
   var cnt=doneWorkouts().length;
   h+='<section class="sec" style="margin-top:4px">'+chips+
-    '<div class="card" style="display:grid;gap:8px"><div class="row"><div><div style="font:700 26px/1 var(--display);letter-spacing:.03em">'+esc(day)+'</div><div class="sm muted">'+(lvl==='beginner'?'Beginner':'Intermediate')+' · about '+(ss.short?30:list.length*11)+' min</div></div>'+
+    '<div class="card" style="display:grid;gap:8px"><div class="row"><div><div style="font:700 26px/1 var(--display);letter-spacing:.03em">'+esc(day)+'</div><div class="sm muted">'+(lvl==='beginner'?'Beginner':'Intermediate')+' · about '+(ss.short?30:list.length*8+12)+' min</div></div>'+
     '<button class="chip" data-a="short" aria-pressed="'+(!!ss.short)+'">30-min version</button></div>'+
     '<div class="prog" aria-label="'+dn+' of '+total+' sets done"><i style="width:'+(total?dn/total*100:0)+'%"></i></div><div class="sm muted num">'+dn+' of '+total+' sets done</div></div>';
   if(S.level==='beginner'&&cnt>=36)h+='<div class="note">You have finished '+cnt+' workouts. You are ready for Intermediate. Switch in Settings.</div>';
   if(/Push/.test(day))h+='<div class="note w">Shoulder care: neutral grips, no behind-the-neck presses. Stop any set that pinches.</div>';
+  var wl=WARM[/Legs/.test(day)?'legs':'upper'];
+  h+='<div class="card" style="display:grid;gap:8px"><div class="row"><div><h3 style="margin:0;font:700 20px/1.15 var(--display)">Warm-up · 5 min</h3><div class="sm muted">Opens up hips and upper back after long drives</div></div><button class="ck" data-a="warm" aria-pressed="'+(!!ss.warm)+'" aria-label="Warm-up done">'+ICON.check+'</button></div>'+
+    (ss.warm?'':'<ul style="margin:0;padding-left:20px;display:grid;gap:2px;font-size:14px">'+wl.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>')+'</div>';
   list.forEach(function(ex){
     var tg=target(ex,date),a=(ss.sets||{})[ex.id]||[],all=a.filter(function(x){return x&&x.done}).length>=ex.sets;
-    h+='<div class="card ex'+(all?' alldone':'')+'"><div><h3>'+esc(ex.name)+'</h3><div class="t num">'+ex.sets+' sets × '+ex.lo+(ex.hi!==ex.lo?'–'+ex.hi:'')+(ex.unit==='sec'?' sec':' reps')+(tg.w!==''&&!ex.noload?' @ '+tg.w+' lb':'')+(tg.up?' ▲':tg.down?' ▼':'')+'</div></div><div class="why">'+esc(tg.why)+'</div>'+
+    h+='<div class="card ex'+(all?' alldone':'')+'"><div><h3>'+esc(ex.name)+'</h3><div class="t num">'+ex.sets+' sets × '+ex.lo+(ex.hi!==ex.lo?'–'+ex.hi:'')+(ex.unit==='sec'?' sec':' reps')+(tg.w!==''&&!ex.noload?' @ '+tg.w+' lb':'')+(tg.up?' ▲':tg.down?' ▼':'')+(ex.uni?' · each arm':ex.each?' · each leg':'')+'</div></div>'+(ex.uni?'<div class="why" style="color:var(--ink)"><b>Left arm first.</b> Do your reps on the left, then match that number on the right. Your scan shows the left arm is about 0.8 in smaller.</div>':'')+'<div class="why">'+esc(tg.why)+'</div>'+
       '<div class="set" aria-hidden="true" style="margin-bottom:-6px"><span></span>'+(ex.noload?'<span></span>':'<span class="lbl">lb</span>')+'<span class="lbl">'+(ex.unit==='sec'?'sec':'reps')+'</span><span></span></div>';
     var pw;
     for(var i=0;i<ex.sets;i++){
@@ -402,6 +500,7 @@ function viewWorkout(){
     }
     h+='</div>';
   });
+  if(!ss.short&&FIN[day])h+='<div class="card" style="display:grid;gap:6px"><div class="row"><h3 style="margin:0;font:700 20px/1.15 var(--display)">Finisher · 5–8 min</h3><button class="ck" data-a="fin" aria-pressed="'+(!!ss.fin)+'" aria-label="Finisher done">'+ICON.check+'</button></div><div style="font-size:14px">'+esc(FIN[day])+'</div><div class="sm muted">Builds the quick, springy athletic side, plus your stamina. Go hard but keep form crisp.</div></div>';
   h+='<button class="btn wide '+(ss.done?'':'pri')+'" data-a="finish" style="min-height:52px">'+(ss.done?'Workout saved · tap to reopen':'Finish workout')+'</button></section>';
   return h;
 }
@@ -527,6 +626,7 @@ function openSettings(){
 function render(){
   renderChrome();
   $('#view').innerHTML=({food:viewFood,workout:viewWorkout,progress:viewProgress})[tab]();
+  if(tab==='food')updEst();
 }
 function toast(m,undoFn){
   var t=$('#toast');undo=undoFn||null;
@@ -555,6 +655,13 @@ document.addEventListener('click',function(ev){
     var nf_={id:'c'+Date.now().toString(36),name:nm,serving:'1 serving',kcal:k,p:nv('m-p'),c:nv('m-c'),f:nv('m-f')};
     if($('#m-save').checked&&nm!=='Quick entry'){S.custom.unshift(nf_);if(S.favs.indexOf(nf_.id)<0)S.favs.push(nf_.id)}
     addFood(nf_,1);$('#sheet').hidden=true;render();break;
+  case 'estadd':
+    var ek=nv('estk'),ep=nv('estp'),et=(estText||'').trim();
+    if(!ek){toast(et?'Enter the calories':'Type what you ate first');return}
+    var rest=Math.max(0,ek-ep*4),nm2=et?et.charAt(0).toUpperCase()+et.slice(1):'Quick entry';
+    addFood({id:'est',name:nm2.length>60?nm2.slice(0,57)+'...':nm2,serving:'estimate',kcal:ek,p:ep,c:r0(rest*0.55/4),f:r0(rest*0.45/9)},1);
+    S.recent=S.recent.filter(function(x){return x!=='est'});save();
+    estText='';estTouched=false;render();break;
   case 'qty':var e=log(date).filter(function(x){return x.id===id})[0];if(e){e.qty=Math.max(0.5,e.qty+ +el.dataset.d);save();render()}break;
   case 'del':var L=log(date),idx=-1,rm;L.forEach(function(x,j){if(x.id===id)idx=j});if(idx>-1){rm=L.splice(idx,1)[0];save();render();var dd=date;toast('Removed '+rm.name,function(){(S.log[dd]=S.log[dd]||[]).push(rm);save();render()})}break;
   case 'copyday':var y=log(addDays(date,-1)).filter(function(x){return !x.ex});S.log[date]=y.map(function(x){var c=JSON.parse(JSON.stringify(x));c.id='e'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);return c});save();render();toast('Copied '+y.length+' items from yesterday');break;
@@ -564,6 +671,7 @@ document.addEventListener('click',function(ev){
     var cur=S.wo[date];
     if(cur&&Object.keys(cur.sets||{}).length&&cur.day!==el.dataset.d){toast('This day already has sets logged for '+cur.day);return}
     if(cur)cur.day=el.dataset.d;pickDay=el.dataset.d;save();render();break;
+  case 'warm':case 'fin':var sw=S.wo[date]||(S.wo[date]=wsess(date,pickDay));sw[a]=!sw[a];save();render();break;
   case 'short':var ss=S.wo[date]||(S.wo[date]=wsess(date,pickDay));ss.short=!ss.short;save();render();break;
   case 'adj':
     var sr=setRef(el.dataset.ex,+el.dataset.i),kk=el.dataset.k,base=sr[kk]===''||sr[kk]==null?0:+sr[kk];
@@ -597,7 +705,8 @@ document.addEventListener('change',function(ev){
   var el=ev.target;
   if(el.dataset&&el.dataset.a==='setin'){var sr=setRef(el.dataset.ex,+el.dataset.i);sr[el.dataset.k]=el.value===''?'':+el.value;save()}
 });
-document.addEventListener('input',function(ev){if(ev.target.id==='sq'){sq=ev.target.value;fillSearch()}});
+document.addEventListener('input',function(ev){if(ev.target.id==='sq'){sq=ev.target.value;fillSearch()}else if(ev.target.id==='est'){estText=ev.target.value;estTouched=false;updEst()}else if(ev.target.id==='estk'||ev.target.id==='estp'){estTouched=true}});
+document.addEventListener('keydown',function(ev){if(ev.key==='Enter'&&ev.target.id==='est'){ev.preventDefault();var b=document.querySelector('[data-a=estadd]');if(b)b.click()}});
 document.addEventListener('visibilitychange',function(){if(!document.hidden&&timer)tick()});
 render();
 })();
